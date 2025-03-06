@@ -120,10 +120,13 @@ float sdCircle( vec2 p, float r )
     return length(p) - r;
 }
 
-float crossSDF(in vec2 st, in float s) {
-    vec2 size = vec2(.15, s);
-    return min(sdBox(st.xy, size.xy),
-               sdBox(st.xy, size.yx));
+float tetrahedronSDF(vec3 p, float h)  {
+    vec3 q = abs(p);
+    
+    float y = p.y;
+    float d1 = q.z-max(0.,y);
+    float d2 = max(q.x*.5 + y*.5,.0) - min(h, h+y);
+    return length(max(vec2(d1,d2),.005)) + min(max(d1,d2), 0.0);
 }
 
     void main(){
@@ -141,7 +144,7 @@ float crossSDF(in vec2 st, in float s) {
       vec2 dir = normalize(pos.xy);
       vec2 vel = offset.xy;
       
-    float tl1 = mod(uTime *2.,4.);
+    float tl1 = mod(uTime *2.,3.);
     float sc = map(time2 , -2.,2.,2.,1.);
     float sc2 = map(time , -2.,2.,-2.,2.);
     float amp2 = map(sin(time * 2. * PI) , -2.,2.,20.,30.);
@@ -150,22 +153,19 @@ float crossSDF(in vec2 st, in float s) {
     float n3,n, shape;
     if(tl1 < 1.0) {
         shape = sdEquilateralTriangle(sdPos , 0.5) ;
-        n+= cnoise(vec3(pos.xy * vec2(1.5,sc2)  , uTime*0.5)) * 10.;
+        n+= cnoise(vec3(pos.xy * vec2(1.5,1.2)  , uTime*0.5)) * 10.;
     } else if(tl1 < 2.0) {
       shape =  sdBox(sdPos, vec2( 0.5));
       n+= cnoise(vec3(pos.xy * vec2(sc2,0.1)  , 0.5)) * 10.;
-    } else if(tl1 < 3.0) {
-      shape =  crossSDF(sdPos, 0.5);
-      n+= cnoise(vec3(pos.xy * vec2(0.5,sc2)  , 0.5)) * 10.;
-    }else {
+    } else {
         shape = sdCircle(sdPos,  0.5);
-        n+= cnoise(vec3(pos.xy * vec2(sc2,1.5)  , uTime*0.5)) * 10.;
+        n+= cnoise(vec3(pos.xy * vec2(1.5,1.75)  , uTime*0.5)) * 10.;
 
     }
 
-    for(int i = 0; i<4; i++){
-      n3 += cnoise(vec3(pos.xy * vec2(sc,.5)  , uTime*0.75) + vec3(0.,uTime*0.1,0.)) * 15. * amp2;
-    }
+    // for(int i = 0; i<4; i++){
+    //   n3 += cnoise(vec3(pos.xy * vec2(sc,.5)  , uTime*0.75) + vec3(0.,uTime*0.1,0.)) * 15. * amp2;
+    // }
 
 
 

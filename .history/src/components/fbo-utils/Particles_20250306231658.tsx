@@ -24,7 +24,7 @@ const Particles = ({
   renderMatRef: MutableRefObject<ShaderMaterial | null>;
 }) => {
   return (
-    <points scale={8} position={[-4, -4, 0]}>
+    <points scale={1} position={[-4, -4, 0]}>
       <renderMat
         ref={renderMatRef}
         args={[uSize]}

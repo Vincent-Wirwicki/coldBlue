@@ -13,7 +13,7 @@ const MainCanvas = ({
   dpr?: number;
 }) => {
   return (
-    <div className="fixed top-0 left-0 z-[-1] w-screen h-screen">
+    <div className="fixed z-[-1] w-screen h-screen">
       <Canvas
         camera={{
           position: [4, 4, 24],

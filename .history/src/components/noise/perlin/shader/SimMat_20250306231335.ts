@@ -121,9 +121,9 @@ float sdCircle( vec2 p, float r )
 }
 
 float crossSDF(in vec2 st, in float s) {
-    vec2 size = vec2(.15, s);
-    return min(sdBox(st.xy, size.xy),
-               sdBox(st.xy, size.yx));
+    vec2 size = vec2(.25, s);
+    return min(rectSDF(st.xy, size.xy),
+               rectSDF(st.xy, size.yx));
 }
 
     void main(){
@@ -150,16 +150,16 @@ float crossSDF(in vec2 st, in float s) {
     float n3,n, shape;
     if(tl1 < 1.0) {
         shape = sdEquilateralTriangle(sdPos , 0.5) ;
-        n+= cnoise(vec3(pos.xy * vec2(1.5,sc2)  , uTime*0.5)) * 10.;
+        n+= cnoise(vec3(pos.xy * vec2(1.5,1.2)  , uTime*0.5)) * 10.;
     } else if(tl1 < 2.0) {
       shape =  sdBox(sdPos, vec2( 0.5));
       n+= cnoise(vec3(pos.xy * vec2(sc2,0.1)  , 0.5)) * 10.;
     } else if(tl1 < 3.0) {
       shape =  crossSDF(sdPos, 0.5);
-      n+= cnoise(vec3(pos.xy * vec2(0.5,sc2)  , 0.5)) * 10.;
+      n+= cnoise(vec3(pos.xy * vec2(sc2,0.1)  , 0.5)) * 10.;
     }else {
         shape = sdCircle(sdPos,  0.5);
-        n+= cnoise(vec3(pos.xy * vec2(sc2,1.5)  , uTime*0.5)) * 10.;
+        n+= cnoise(vec3(pos.xy * vec2(1.5,1.75)  , uTime*0.5)) * 10.;
 
     }
 

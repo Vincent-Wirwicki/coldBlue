@@ -9,9 +9,9 @@ const Layout = ({
   }[];
 }) => {
   return (
-    <main className="absolute top-0 left-0 w-screen h-screen flex justify-center items-end pb-28 ">
-      <div className="flex flex-col justify-start items-center w-4/5 h-10">
-        {/* <h1 className="text-neutral-500"> LAB</h1> */}
+    <main className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center">
+      <div className="flex flex-col justify-center items-center gap-2 w-4/5 h-4/5">
+        <h1 className="text-neutral-500"> lab</h1>
         <Outlet />
         <Nav paths={paths} />
       </div>
@@ -31,8 +31,7 @@ const Nav = ({
 }) => {
   return (
     <nav className="text-neutral-500 flex flex-col justify-center items-end gap-5 p-2 uppercase">
-      <div className="flex gap-2 font-bold">
-        <h1 className="text-xs">Lab</h1>
+      <div className="flex flex-col  gap-2">
         {paths.map(({ path, title }, i) => (
           <MyLink key={`${path}-${title}-${i}`} path={path} title={title} />
         ))}

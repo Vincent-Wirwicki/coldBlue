@@ -13,10 +13,10 @@ const MainCanvas = ({
   dpr?: number;
 }) => {
   return (
-    <div className="fixed top-0 left-0 z-[-1] w-screen h-screen">
+    <div className="fixed top-0 left-0 w-screen h-screen flex flex-col justify-center items-center col-span-2 ">
       <Canvas
         camera={{
-          position: [4, 4, 24],
+          position: [4, 4, 20],
           lookAt: () => new Vector3(0, 0, 0),
         }}
         dpr={dpr}

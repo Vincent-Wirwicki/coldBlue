@@ -15,7 +15,7 @@ const App = () => {
 
   const paths = [
     { path: "/", title: "prln" },
-    { path: "/simplex", title: "splx" },
+    { path: "/simplex", title: "smplx" },
     { path: "/curl", title: "crl" },
     { path: "/periodic", title: "prdc" },
   ];

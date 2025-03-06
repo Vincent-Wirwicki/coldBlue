@@ -3,21 +3,22 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import { lazy, Suspense } from "react";
 import useInitArrays from "./components/fbo-utils/hooks/useInitArrays";
-import Loading from "./components/layout/Loading";
 
 const Curl = lazy(() => import("./pages/Curl"));
 const Periodic = lazy(() => import("./pages/Periodic"));
 const Simplex = lazy(() => import("./pages/Simplex"));
+const Fbm = lazy(() => import("./pages/Fbm"));
 
 const App = () => {
   const texSize = 512;
   const { particles, random2D, random4D } = useInitArrays({ size: texSize });
 
   const paths = [
-    { path: "/", title: "prln" },
-    { path: "/simplex", title: "splx" },
-    { path: "/curl", title: "crl" },
-    { path: "/periodic", title: "prdc" },
+    { path: "/", title: "perlin" },
+    { path: "/simplex", title: "simplex" },
+    { path: "/curl", title: "curl" },
+    { path: "/fbm", title: "fbm" },
+    { path: "/periodic", title: "periodic" },
   ];
 
   return (
@@ -38,7 +39,7 @@ const App = () => {
           <Route
             path="/curl"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<>...</>}>
                 <Curl
                   size={texSize}
                   particles={particles}
@@ -51,7 +52,7 @@ const App = () => {
           <Route
             path="/periodic"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<>...</>}>
                 <Periodic
                   size={texSize}
                   particles={particles}
@@ -64,8 +65,21 @@ const App = () => {
           <Route
             path="/simplex"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<>...</>}>
                 <Simplex
+                  size={texSize}
+                  particles={particles}
+                  pos={random2D}
+                  offset={random4D}
+                />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/fbm"
+            element={
+              <Suspense fallback={<>...</>}>
+                <Fbm
                   size={texSize}
                   particles={particles}
                   pos={random2D}
