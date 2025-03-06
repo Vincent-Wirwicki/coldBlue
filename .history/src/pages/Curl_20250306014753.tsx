@@ -1,0 +1,35 @@
+import { OrthographicCamera, Scene } from "three";
+import MainCanvas from "../components/layout/MainCanvas";
+import SceneFBO from "../components/noise/curl/scene/SceneFBO";
+
+const Curl = ({
+  cam,
+  scene,
+
+  size,
+  pos,
+  particles,
+  offset,
+}: {
+  cam: OrthographicCamera;
+  scene: Scene;
+  size: number;
+  particles: Float32Array;
+  pos: Float32Array;
+  offset: Float32Array;
+}) => {
+  return (
+    <MainCanvas>
+      <SceneFBO
+        cam={cam}
+        scene={scene}
+        size={size}
+        particles={particles}
+        pos={pos}
+        offset={offset}
+      />
+    </MainCanvas>
+  );
+};
+
+export default Curl;
