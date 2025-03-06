@@ -44,7 +44,7 @@ const Nav = ({
 const MyLink = ({ path, title }: { path: string; title: string }) => {
   return (
     <NavLink
-      className="[&.active]:text-neutral-200 [&.active]:underline text-xs line-through "
+      className="[&.active]:text-neutral-200 text-xs underline underline-offset-2"
       to={path}
     >
       {title}

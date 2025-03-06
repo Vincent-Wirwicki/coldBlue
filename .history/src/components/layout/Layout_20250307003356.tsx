@@ -32,7 +32,7 @@ const Nav = ({
   return (
     <nav className="text-neutral-500 flex flex-col justify-center items-end gap-5 p-2 uppercase">
       <div className="flex gap-2 font-bold">
-        <h1 className="text-xs">Lab</h1>
+        <h1 className="text-xs lowercase">Lab</h1>
         {paths.map(({ path, title }, i) => (
           <MyLink key={`${path}-${title}-${i}`} path={path} title={title} />
         ))}
@@ -43,10 +43,7 @@ const Nav = ({
 
 const MyLink = ({ path, title }: { path: string; title: string }) => {
   return (
-    <NavLink
-      className="[&.active]:text-neutral-200 [&.active]:underline text-xs line-through "
-      to={path}
-    >
+    <NavLink className="[&.active]:text-neutral-200 text-xs" to={path}>
       {title}
     </NavLink>
   );
