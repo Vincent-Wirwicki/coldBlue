@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .slabo {
+        font-family: "Slabo 27px", serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    html,
+    body {
+        @apply bg-[black] text-neutral-200
+    }
+
+    nav a.active {
+        @apply text-green-500
+    }
+}
+
+/* @layer components {
+    #nav {
+        @apply fixed top-5 left-5 z-10 text-red-500 flex gap-5
+     }
+
+} */
