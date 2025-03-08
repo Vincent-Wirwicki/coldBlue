@@ -15,7 +15,7 @@ declare module "@react-three/fiber" {
 }
 
 const Particles = ({
-  uSize = 8,
+  uSize = 15,
   renderMatRef,
   particles,
 }: {
