@@ -11,11 +11,11 @@ const Layout = ({
 }) => {
   return (
     <main className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center py-8 bg-black">
-      <div className="relative grid grid-cols-6 grid-rows-6 gap-2 md:w-3/5 sm:w-4/5 h-full bg-black">
+      <div className="relative grid grid-cols-6 grid-rows-6 gap-2 md:w-3/5 sm:w-4/5 h-full bg-black border-x border-neutral-500">
         <MotionNav paths={paths} />
 
         {/* CANVAS ------------------ */}
-        <div className="absolute col-start-2 row-start-2 row-span-4 col-span-4 w-full h-full border-y border-neutral-500">
+        <div className="absolute col-start-2 row-start-2 row-span-4 col-span-4 w-full h-full ">
           <Outlet />
         </div>
         {/* CANVAS------------------- */}
