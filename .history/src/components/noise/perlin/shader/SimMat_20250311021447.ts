@@ -126,6 +126,19 @@ float crossSDF(in vec2 st, in float s) {
                sdBox(st.xy, size.yx));
 }
 
+float polySDF(in vec2 st, in int V) {
+#ifdef CENTER_2D
+    st -= CENTER_2D;
+    st *= 2.0;
+#else
+    st = st * 2.0 - 1.0;
+#endif
+    float a = atan(st.x, st.y) + PI;
+    float r = length(st);
+    float v = TAU / float(V);
+    return cos(floor(.5 + a / v) * v - a ) * r;
+}
+
     void main(){
       vec2 uv = vUv;
       float time = mod(mod(uTime *0.15, 1.0) + 1.0, 1.0);
@@ -153,13 +166,13 @@ float crossSDF(in vec2 st, in float s) {
         n+= cnoise(vec3(pos.xy * vec2(1.5,sc2)  , uTime*0.5)) * 10.;
     } else if(tl1 < 2.0) {
       shape =  sdBox(sdPos, vec2( 0.5));
-      n+= cnoise(vec3(pos.xy * vec2(sc,0.1)  , 0.5)) * 10.;
+      n+= cnoise(vec3(pos.xy * vec2(sc2,0.1)  , 0.5)) * 10.;
     } else if(tl1 < 3.0) {
       shape =  crossSDF(sdPos, 0.5);
       n+= cnoise(vec3(pos.xy * vec2(0.5,sc2)  , 0.5)) * 10.;
     }else {
         shape = sdCircle(sdPos,  0.5);
-        n+= cnoise(vec3(pos.xy * vec2(sc,1.5)  , uTime*0.5)) * 10.;
+        n+= cnoise(vec3(pos.xy * vec2(sc2,1.5)  , uTime*0.5)) * 10.;
 
     }
 
@@ -167,19 +180,13 @@ float crossSDF(in vec2 st, in float s) {
       n3 += cnoise(vec3(pos.xy * vec2(sc,.5)  , uTime*0.75) + vec3(0.,uTime*0.1,0.)) * 15. * amp2;
     }
 
-
-
     vel *= (n3  *0.075 * n )  * shape;
-
 
     pos.x += vel.x * cos(n * n3) * 0.1 ;
     pos.y += vel.y * sin(n * n3) * 0.1 ;
 
-
-      pos.xyz = mod(pos.xyz, 2.);
-      gl_FragColor = vec4(pos);
-
-
+     pos.xyz = mod(pos.xyz, 2.);
+     gl_FragColor = vec4(pos);
     }
 
 `,

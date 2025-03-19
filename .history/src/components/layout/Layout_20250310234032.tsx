@@ -12,17 +12,16 @@ const Layout = ({
   return (
     <main className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center py-8 bg-black">
       <div className="relative grid grid-cols-6 grid-rows-6 gap-2 md:w-3/5 sm:w-4/5 h-full bg-black">
-        <MotionNav paths={paths} />
+        {/* <MotionNav paths={paths} /> */}
+
         {/* CANVAS ------------------ */}
-        <div className="absolute col-start-2 row-start-2 row-span-4 col-span-4 w-full h-full border-y border-neutral-500">
+        <div className="absolute col-start-2 row-start-2 row-span-4 col-span-4 w-full h-full ">
           <Outlet />
         </div>
         {/* CANVAS------------------- */}
+
         {/* BOTTOM PART ------------- */}
-        <h1 className="col-start-2 row-start-6 text-neutral-500">
-          {" "}
-          Cold night
-        </h1>{" "}
+        {/* <h1 className="col-start-2 row-start-6 text-neutral-500">Cold night</h1>  border-y border-neutral-500
         <div className="col-start-3 col-span-2 row-start-6 ">
           A visual exploration
         </div>
@@ -30,7 +29,7 @@ const Layout = ({
           <a href="https://github.com/Vincent-Wirwicki/coldBlue" target="blank">
             Github
           </a>
-        </div>
+        </div> */}
         {/* BOTTOM PART ------------- */}
       </div>
     </main>

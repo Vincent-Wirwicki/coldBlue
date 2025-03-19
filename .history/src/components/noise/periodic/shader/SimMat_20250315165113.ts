@@ -135,7 +135,7 @@ float heartSDF(vec2 st) {
 
       void main(){
       vec2 uv = vUv;
-      float time = mod(mod(uTime * 0.25, 1.0) + 1.0, 1.0);
+      float time = mod(mod(uTime * 0.5, 1.0) + 1.0, 1.0);
       float time2 = mod(mod(uTime * 0.075, 1.0) + 1.0, 1.0);
 
       vec4 pos = texture2D(uPositions, uv);

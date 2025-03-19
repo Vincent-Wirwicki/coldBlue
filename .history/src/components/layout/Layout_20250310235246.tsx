@@ -20,7 +20,6 @@ const Layout = ({
         {/* CANVAS------------------- */}
         {/* BOTTOM PART ------------- */}
         <h1 className="col-start-2 row-start-6 text-neutral-500">
-          {" "}
           Cold night
         </h1>{" "}
         <div className="col-start-3 col-span-2 row-start-6 ">
