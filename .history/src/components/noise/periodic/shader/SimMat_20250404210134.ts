@@ -163,7 +163,7 @@ float heartSDF(vec2 st) {
       // vel *= nv + curve;
       // pos.xy += vel * n * .75 ;
 
-      float alpha =  uTime *1.85;
+      float alpha =  uTime *.85;
       float t2 = sin(time *2.*PI);
       vec2 period = vec2(.5, .5);
       float timer2 = mod(uTime * 0.15, 1.0);

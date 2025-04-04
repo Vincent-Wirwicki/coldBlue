@@ -169,7 +169,7 @@ float heartSDF(vec2 st) {
       float timer2 = mod(uTime * 0.15, 1.0);
       float sc2 = map(sin(timer2*2.*PI), 0.,1.,.5,1.);
       float p2 = map(t2*t2, -3.,3.,-10.,10.);
-      float n = psrddnoise(pos.xy * vec2(1.,floor(p2))+ vec2(1., uTime * 0.15),period, alpha, grad, der);
+      float n = psrddnoise(pos.xy * vec2(1.,floor(p2))+ vec2(1., uTime * 0.25),period, alpha, grad, der);
       float curve = ( der.x + der.y)*0.1 ;
        vel *= curve ; 
       pos.xy += n * vel * 0.5  ;
