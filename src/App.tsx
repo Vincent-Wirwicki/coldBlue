@@ -10,7 +10,7 @@ const Periodic = lazy(() => import("./pages/Periodic"));
 const Simplex = lazy(() => import("./pages/Simplex"));
 
 const App = () => {
-  const texSize = 512;
+  const texSize = 1024;
   const { particles, random2D, random4D } = useInitArrays({ size: texSize });
 
   const paths = [

@@ -115,35 +115,23 @@ float sdCircle( vec2 p, float r )
       float repeat = sin(time * 2. * PI);
       vec4 pos = texture2D( uPositions, uv );
       vec4 offset = texture2D( uOffset, uv );
-      vec4 ip = pos;
 
-      float angle = atan(pos.x, pos.y);
-      float radius = length(pos.xy);
-      vec2 dir = normalize(pos.xy);
       vec2 vel = offset.xy;
       
 
-    float sc = map(sin(time2 * 2. * PI) , -1.,1.,-1.,1.);
-    float sc2 = map(sin(time * 2. * PI) , -2.,2.,0.2,-2.);
-    float amp2 = map(sin(time * 2. * PI) , -2.,2.,10.,30.);
-
-    float box = sdBox(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , offset.z *0.01) , vec2(time*0.5 + 0.25 , .5)) ;
-    float circle = sdCircle(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , offset.z *0.01),  mix(0.1 + time,0.5,time2));
-    float circle2 = sdCircle(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , offset.z *0.01),  mix(0.5 + time,0.7,time));
-    float boundBox = (4. * (box*0.5));
-    float n3, c2;
-    for(int i = 0; i<4; i++){
-      n3 += snoise(vec3((pos.xy) * vec2(time2, .5)- vec2(1., uTime*0.1), uTime*0.5)   ) * amp2 ;
-      c2 = sdCircle(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , offset.z *0.01),  mix(0.3 + time,0.6 - time,time2*time2*0.5));
-    }
-  
-    float n = snoise(vec3(pos.xy * vec2(2.,  floor(sc)) + vec2(1., uTime*0.25) , uTime*0.5)   ) * amp2 * 2.;
-    float n2 = snoise(vec3(pos.xy + vec2(1., uTime*0.5) , uTime*0.75)   )*.5;
-    vel *= n  *0.5 *n3 * (length( circle  )) ;
-    pos.x += vel.x * cos(n * n3) * 0.075;
-    pos.y += vel.y * sin(n * n3) * 0.075;
-
-
+      float sc = map(repeat*0.5 , -1.,1.,-4.,4.);
+      float amp2 = map(repeat , -2.,2.,10.,30.);
+      float radius = map(repeat , -2.,2.,0.5,.6);
+      float circle = sdCircle(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , offset.z *0.01), radius );
+      float n3;
+      for(int i = 0; i<4; i++){
+        n3 += snoise(vec3((pos.xy ) * vec2(1., .5) - vec2(1.,1.), uTime*0.5)   ) * amp2 ;
+      }
+    
+      float n = snoise(vec3(pos.xy * vec2(2.,  floor(sc) ) / length(circle)  + vec2(1., uTime*0.25) , uTime*0.5)   ) * amp2 ;
+      vel *= n  *0.5 *n3 * length(circle) ;
+      pos.x += vel.x * cos(n * n3) * 0.075;
+      pos.y += vel.y * sin(n * n3) * 0.075;
       pos.xyz = mod(pos.xyz, 2.);
       gl_FragColor = vec4(pos);
 
@@ -154,13 +142,3 @@ float sdCircle( vec2 p, float r )
     });
   }
 }
-// float test = 0.01;
-// vec3 attract;
-// float steps;
-// float start = 0.;
-
-// start += 0.01;
-
-//   test = map(start, 3.,6.);
-//   steps = step(0., test);
-//   float A = steps * 0.01;

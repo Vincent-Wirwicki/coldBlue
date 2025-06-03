@@ -38,30 +38,20 @@ export default class RenderMatTest extends ShaderMaterial {
           v = (v * (6.2 * v + 0.5)) / (v * (6.2 * v + 1.7) + 0.06);
           return v;
       }
-      vec3 tonemapACES(vec3 v) {
-          const float a = 2.51;
-          const float b = 0.03;
-          const float c = 2.43;
-          const float d = 0.59;
-          const float e = 0.14;
-          return clamp((v*(a*v+b))/(v*(c*v+d)+e),0.,1.);
-      }
-      vec3 water(float x) {
-    return pow(vec3(.1, .7, .8), vec3(4.* saturate(1.0-x) ));
-}
-vec3 heatmap(float v) {
-    vec3 r = v * 2.1 - vec3(1.8, 1.14, 0.3);
-    return 1.0 - r * r;
-}
-vec3 fire(float x) { return vec3(1.0, 0.25, 0.0625) * exp(4.0 * x - 1.0); }
 
+      vec3 water(float x) {
+        return pow(vec3(.1, .7, .8), vec3(4.* saturate(1.0-x) ));
+      }
+
+
+      vec3 fire(float x) { return vec3(1.0, 0.25, 0.0625) * exp(4.0 * x - 1.0); }
 
       void main() {        
           float dist = length(gl_PointCoord.xy - vec2(0.5));
           vec3 color = uColor;
           vec3 v = (vibrance(vPos, .125)*0.5)+0.5;
         
-          vec3 w = water(vPos.z);
+          vec3 w = fire(vPos.z);
   
           vec3 tone = tonemapFilmic(w) * .15;
           // v*=0.5;

@@ -131,49 +131,45 @@ float crossSDF(in vec2 st, in float s) {
       float time = mod(mod(uTime *0.15, 1.0) + 1.0, 1.0);
       float time2 = mod(mod(uTime*0.25, 1.0) + 1.0, 1.0);
 
-      float repeat = sin(time * 2. * PI);
       vec4 pos = texture2D( uPositions, uv);
       vec4 offset = texture2D( uOffset, uv);
-      vec4 ip = pos;
 
       float angle = atan(pos.x, pos.y);
       float radius = length(pos.xy);
       vec2 dir = normalize(pos.xy);
       vec2 vel = offset.xy;
       
-    float tl1 = mod(uTime *2.,4.);
-    float sc = map(time2 , -2.,2.,2.,1.);
-    float sc2 = map(time , -2.,2.,-2.,2.);
-    float amp2 = map(sin(time * 2. * PI) , -2.,2.,20.,30.);
-    vec2 sdPos = pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , .001); 
+      float sc = map(time2 , -2.,2.,2.,1.);
+      float sc2 = map(time , -2.,2.,-2.,2.);
+      float amp2 = map(sin(time * 2. * PI) , -2.,2.,20.,30.);
+      vec2 sdPos = pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , .001); 
+      
+      // timeline for swapp
+      float swapNumbers = 4.;
+      float tl1 = mod(uTime *2.,swapNumbers);
 
-    float n3,n, shape;
-    if(tl1 < 1.0) {
+      float n3,n, shape;
+      // shap swapp
+      if(tl1 < 1.0) {
         shape = sdEquilateralTriangle(sdPos , 0.5) ;
         n+= cnoise(vec3(pos.xy * vec2(1.5,sc2)  , uTime*0.5)) * 10.;
-    } else if(tl1 < 2.0) {
-      shape =  sdBox(sdPos, vec2( 0.5));
-      n+= cnoise(vec3(pos.xy * vec2(sc,0.1)  , 0.5)) * 10.;
-    } else if(tl1 < 3.0) {
-      shape =  crossSDF(sdPos, 0.5);
-      n+= cnoise(vec3(pos.xy * vec2(0.5,sc2)  , 0.5)) * 10.;
-    }else {
-        shape = sdCircle(sdPos,  0.5);
-        n+= cnoise(vec3(pos.xy * vec2(sc,1.5)  , uTime*0.5)) * 10.;
-
-    }
-
-    for(int i = 0; i<4; i++){
-      n3 += cnoise(vec3(pos.xy * vec2(sc,.5)  , uTime*0.75) + vec3(0.,uTime*0.1,0.)) * 15. * amp2;
-    }
-
-
-
-    vel *= (n3  *0.075 * n )  * shape;
-
-
-    pos.x += vel.x * cos(n * n3) * 0.1 ;
-    pos.y += vel.y * sin(n * n3) * 0.1 ;
+      } else if(tl1 < 2.0) {
+        shape =  sdBox(sdPos, vec2( 0.5));
+        n+= cnoise(vec3(pos.xy * vec2(sc,0.1)  , 0.5)) * 10.;
+      } else if(tl1 < 3.0) {
+        shape =  crossSDF(sdPos, 0.5);
+        n+= cnoise(vec3(pos.xy * vec2(0.5,sc2)  , 0.5)) * 10.;
+      }else {
+          shape = sdCircle(sdPos,  0.5);
+          n+= cnoise(vec3(pos.xy * vec2(sc,1.5)  , uTime*0.5)) * 10.;
+      }
+      for(int i = 0; i<4; i++){
+        n3 += cnoise(vec3(pos.xy * vec2(sc,.5)  , uTime*0.75) + vec3(0.,uTime*0.1,0.)) * 10. * amp2;
+      }
+      
+      vel *= (n3  *0.075 * n )  * shape;
+      pos.x += vel.x * cos(n * n3) * 0.1 ;
+      pos.y += vel.y * sin(n * n3) * 0.1 ;
 
 
       pos.xyz = mod(pos.xyz, 2.);
