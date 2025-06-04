@@ -13,6 +13,7 @@ import Particles from "../../../fbo-utils/Particles";
 import SimMatCurly from "../shader/SimMat";
 import useInitAndAnimateFBO from "../../../fbo-utils/hooks/useInitAndAnimateFBO";
 import { FBOType } from "../../../../types/FboType";
+import { useWindowResizeReload } from "../../../fbo-utils/hooks/useOnResizeReload";
 
 extend({
   SimMatCurly,
@@ -46,6 +47,7 @@ const SceneFBO: FC<FBOType> = ({ size, particles, pos, offset }) => {
   offsetTex.needsUpdate = true;
 
   useInitAndAnimateFBO(size, scene, cam, simRef, renderRef);
+  useWindowResizeReload();
 
   return (
     <>

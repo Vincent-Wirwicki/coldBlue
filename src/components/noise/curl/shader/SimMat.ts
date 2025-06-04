@@ -147,31 +147,28 @@ export default class SimMatCurly extends ShaderMaterial {
     // --------------------------------------------------------------
     // CURL NOISE END----------------------------------------------
     // --------------------------------------------------------------
-
-
     float map(in float v, in float iMin, in float iMax, in float oMin, in float oMax) { return oMin + (oMax - oMin) * (v - iMin) / (iMax - iMin); }
-    float sdBox( in vec2 p, in vec2 b )
-    {
+    float sdBox( in vec2 p, in vec2 b ){
         vec2 d = abs(p)-b;
         return length(max(d,0.0)) + min(max(d.x,d.y),0.0);
     }
+
     void main(){
       vec2 uv = vUv;
-
       vec4 pos = texture2D( uPositions, uv );
       vec4 offset = texture2D( uOffset, uv );
-      float time2 = mod(mod(uTime*0.25, 1.0) + 1.0, 1.0);
 
       float box = sdBox(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime , .01) , vec2(0.5)) ;
       vec2 vel = offset.xy;
-      vec3 nc = curl(vec3(pos.x*1.25,pos.y*.85 , uTime *0.25 - length(box)) + vec3(0.,0.*0.25,0.))*8.   ;
-      float d2 = length(nc.xy  + pos.xy *4.) *0.15;
+      vec3 nc = curl(vec3(pos.x*1.25,pos.y*.85 , uTime *0.15 - length(box)) + vec3(0.,0.*0.25,0.))*8.   ;
+      float d2 = length(nc.xy  + pos.xy) *0.15;
       vel *= nc.xy *0.15 * length(box) ;
       pos.x -= vel.x * normalize(nc.x) * smoothstep(0.,0.5,d2)   ;
       pos.y -= vel.y * normalize(nc.y) * smoothstep(0.,0.5,d2) ;
 
-      pos.y = mod(pos.y, 8.);
-      pos.xz = mod(pos.xz, 8.);
+      pos = mod(pos, 4.);
+
+     
   
       gl_FragColor = vec4(pos);
     }
@@ -179,13 +176,3 @@ export default class SimMatCurly extends ShaderMaterial {
     });
   }
 }
-// float test = 0.01;
-// vec3 attract;
-// float steps;
-// float start = 0.;
-
-// start += 0.01;
-
-//   test = map(start, 3.,6.);
-//   steps = step(0., test);
-//   float A = steps * 0.01;

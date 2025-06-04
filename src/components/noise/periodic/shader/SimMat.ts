@@ -194,13 +194,3 @@ float heartSDF(vec2 st) {
     });
   }
 }
-// float test = 0.01;
-// vec3 attract;
-// float steps;
-// float start = 0.;
-
-// start += 0.01;
-
-//   test = map(start, 3.,6.);
-//   steps = step(0., test);
-//   float A = steps * 0.01;
