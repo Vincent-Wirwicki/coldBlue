@@ -14,10 +14,10 @@ const App = () => {
   const { particles, random2D, random4D } = useInitArrays({ size: texSize });
 
   const paths = [
-    { path: "/", title: "pln" },
-    { path: "/simplex", title: "slx" },
-    { path: "/curl", title: "crl" },
-    { path: "/periodic", title: "prd" },
+    { path: "/", title: "01" },
+    { path: "/simplex", title: "02" },
+    { path: "/curl", title: "03" },
+    { path: "/periodic", title: "04" },
   ];
 
   return (

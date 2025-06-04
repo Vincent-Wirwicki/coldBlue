@@ -151,8 +151,8 @@ float crossSDF(in vec2 st, in float s) {
       float n3,n, shape;
       // shap swapp
       if(tl1 < 1.0) {
-        shape = sdEquilateralTriangle(sdPos , 0.5) ;
-        n+= cnoise(vec3(pos.xy * vec2(1.5,sc2)  , uTime*0.5)) * 10.;
+          shape = sdEquilateralTriangle(sdPos , 0.5) ;
+          n+= cnoise(vec3(pos.xy * vec2(1.5,sc2)  , uTime*0.5)) * 10.;
       } else if(tl1 < 2.0) {
         shape =  sdBox(sdPos, vec2( 0.5));
         n+= cnoise(vec3(pos.xy * vec2(sc,0.1)  , 0.5)) * 10.;

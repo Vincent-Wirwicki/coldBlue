@@ -119,20 +119,21 @@ float sdCircle( vec2 p, float r )
       vec2 vel = offset.xy;
       
 
-      float sc = map(repeat*0.5 , -1.,1.,-4.,4.);
+      float sc = map(repeat*0.05 , -1.,1.,-4.,4.);
       float amp2 = map(repeat , -2.,2.,10.,30.);
-      float radius = map(repeat , -2.,2.,0.5,.6);
+      float radius = map(repeat , -2.,2.,0.45,.6);
       float circle = sdCircle(pos.xy - smoothstep(1.9999, 1.9998, length(pos.xy -0.5) ) - mod(uTime*2. , offset.z *0.01), radius );
       float n3;
       for(int i = 0; i<4; i++){
-        n3 += snoise(vec3((pos.xy ) * vec2(1., .5) - vec2(1.,1.), uTime*0.5)   ) * amp2 ;
+        n3 += snoise(vec3((pos.xy ) * vec2(1.25, .5 ), uTime*0.35)   ) * amp2 ;
       }
     
       float n = snoise(vec3(pos.xy * vec2(2.,  floor(sc) ) / length(circle)  + vec2(1., uTime*0.25) , uTime*0.5)   ) * amp2 ;
       vel *= n  *0.5 *n3 * length(circle) ;
       pos.x += vel.x * cos(n * n3) * 0.075;
       pos.y += vel.y * sin(n * n3) * 0.075;
-      pos.xyz = mod(pos.xyz, 2.);
+      pos.xz = mod(pos.xz, 2.);
+      pos.y = mod(pos.y, 6.);
       gl_FragColor = vec4(pos);
 
 

@@ -170,7 +170,8 @@ export default class SimMatCurly extends ShaderMaterial {
       pos.x -= vel.x * normalize(nc.x) * smoothstep(0.,0.5,d2)   ;
       pos.y -= vel.y * normalize(nc.y) * smoothstep(0.,0.5,d2) ;
 
-      pos = mod(pos, 4.);
+      pos.y = mod(pos.y, 8.);
+      pos.xz = mod(pos.xz, 8.);
   
       gl_FragColor = vec4(pos);
     }
