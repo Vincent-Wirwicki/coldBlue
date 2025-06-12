@@ -1,4 +1,4 @@
-import { DataTexture, ShaderMaterial, Vector2 } from "three";
+import { DataTexture, ShaderMaterial } from "three";
 
 export default class SimMatCurly extends ShaderMaterial {
   constructor(pos: DataTexture, offset: DataTexture) {
@@ -7,8 +7,6 @@ export default class SimMatCurly extends ShaderMaterial {
         uPositions: { value: pos },
         uOffset: { value: offset },
         uTime: { value: 0 },
-        uRes: { value: new Vector2(0.5, 0.5) },
-        uMouse: { value: new Vector2(0.5, 0.5) },
       },
       vertexShader: /* glsl */ `
         varying vec2 vUv;
@@ -20,7 +18,6 @@ export default class SimMatCurly extends ShaderMaterial {
       fragmentShader: /* glsl */ `
        uniform sampler2D uPositions;
        uniform sampler2D uOffset;
-       uniform vec2 uMouse;
 
        uniform float uTime;
        varying vec2 vUv;  
@@ -166,24 +163,13 @@ export default class SimMatCurly extends ShaderMaterial {
       vec3 nc = curl(vec3(pos.x*1.25,pos.y*.85 , uTime *0.15 - length(box)) + vec3(0.,0.*0.25,0.))*8.   ;
       float d2 = length(nc.xy  + pos.xy) *0.15;
       vel *= nc.xy *0.15 * length(box) ;
-      pos.x -= vel.x * normalize(nc.x) * smoothstep(0.,0.5,d2)    ;
-      pos.y -= vel.y * normalize(nc.y) * smoothstep(0.,0.5,d2)  ;
+      pos.x -= vel.x * normalize(nc.x) * smoothstep(0.,0.5,d2)   ;
+      pos.y -= vel.y * normalize(nc.y) * smoothstep(0.,0.5,d2) ;
 
-      float mouseRadius = 0.1; // adjust as needed (0.0 - 1.0)
-      float distToMouse = length(pos.xy - uMouse.xy);
-
-
-      float dist = distance(pos.xy, uMouse.xy);
-      if(distToMouse < mouseRadius) {
-        vec2 toMouse = uMouse.xy - pos.xy;
-        vec2 dir = normalize(toMouse);
-        vec2 vortex = normalize(vec2(-toMouse.y, toMouse.x)); // Perpendicular
-        float strength = smoothstep(mouseRadius, 0.0, distToMouse);
-        pos.xy += (dir * 0.002 + vortex * 0.08) * strength * d2 ;
-      }
-      
       pos = mod(pos, 4.);
 
+     
+  
       gl_FragColor = vec4(pos);
     }
 `,
