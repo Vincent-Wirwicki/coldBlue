@@ -171,7 +171,9 @@ float crossSDF(in vec2 st, in float s) {
       pos.x += vel.x * cos(n * n3) * 0.1 ;
       pos.y += vel.y * sin(n * n3) * 0.1 ;
 
-
+      vec2 limits = vec2(1);
+      pos.xy += (1.0 - step(-limits.xy, pos.xy)) * limits.xy * 2.0;
+      pos.xy -= step(limits.xy, pos.xy) * limits.xy * 2.0;
       pos.xyz = mod(pos.xyz, 2.);
       gl_FragColor = vec4(pos);
 
