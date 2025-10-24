@@ -167,27 +167,15 @@ float heartSDF(vec2 st) {
       float t2 = sin(time *2.*PI);
       vec2 period = vec2(.5, .5);
       float timer2 = mod(uTime * 0.15, 1.0);
-      float sc2 = map(sin(timer2*2.*PI), 0.,1.,.5,1.);
       float p2 = map(t2*t2, -3.,3.,-10.,10.);
       float n = psrddnoise(pos.xy * vec2(1.,floor(p2))+ vec2(1., uTime * 0.15),period, alpha, grad, der);
       float curve = ( der.x + der.y)*0.1 ;
-       vel *= curve ; 
+      vel *= curve ; 
       pos.xy += n * vel * 0.5  ;
 
       pos = mod(pos , 2.);
 
       gl_FragColor = vec4(pos);
-      // float n1 = 0.;
-      // float freq = 2.;
-      // float amp = 0.5;
-      // vec2 gradSum = vec2(0.);
-      // for(int i = 0; i < 4; i++){
-      //   n1 += psrddnoise(pos.xy*0.1 * freq + gradSum,period, 0.5 * freq * uTime, grad, der);
-      //   gradSum += grad * amp;
-      //   freq *=2.;
-      //   amp*=0.5;
-      // }
-
 
       }
 `,
