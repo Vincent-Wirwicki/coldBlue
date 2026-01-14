@@ -10,23 +10,21 @@ const Layout = ({
 }) => {
   return (
     <main className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center p-8 bg-black">
-      <section className="relative w-full h-full grid grid-cols-12 grid-rows-12">
+      <section className="w-full h-full flex gap-10 justify-center items-center flex-col ">
         {/* CANVAS------------- */}
-        <div className="absolute z-[1] w-full h-full border border-neutral-800 col-start-1 col-span-12 lg:col-start-4 lg:col-span-6">
+        <div className="flex justify-center items-center w-full h-4/5 ">
           <Outlet />
         </div>
         {/* CANVAS------------- */}
-        <div className="row-span-1 row-start-2 col-start-2 col-span-10 md:row-start-7 lg:col-start-6 md:col-start-5 lg:col-span-2 md:col-span-4  bg-black z-[1] w-full h-fit">
-          <h1 className="text-neutral-100 text-center font-light text-xl">
-            shade of light
-          </h1>
-        </div>
-        <nav className="row-span-1 row-start-12 col-start-2 col-span-10 lg:col-start-6 md:col-start-5 lg:col-span-2 md:col-span-4  bg-black z-[1] w-full h-fit ">
+        <nav className=" bg-black w-full h-fit text-neutral-500 flex justify-center items-center gap-20 ">
+          <h1 className="tracking-wider">Shape of light</h1>
+          <Separator />
           <Nav paths={paths} />
+          <Separator />
+          <a href="" className="tracking-wider underline">
+            Github
+          </a>
         </nav>
-        {/* <span className="col-start-1 col-span-3 row-start-1 row-span-1  ">
-          A visual exploration using webgl
-        </span> */}
       </section>
     </main>
   );
@@ -43,15 +41,16 @@ const Nav = ({
   }[];
 }) => {
   return (
-    <div className="w-full flex justify-between items-center ">
-      <h3 className="text-neutral-400">variants</h3>
-      <div className="w-1/2 flex justify-between items-center">
+    <div className=" flex flex-col gap-4 items-center justify-center">
+      <div className=" flex justify-center items-center">
         {paths.map(({ path, title }, i) => (
           <NavLink
             key={`${path}-${title}-${i}`}
             to={path}
             className={({ isActive }) =>
-              isActive ? "text-neutral-200" : "text-neutral-400"
+              isActive
+                ? "text-amber-200 border border-amber-200 p-2 "
+                : "text-neutral-500 border border-neutral-800 p-2"
             }
           >
             {title}
@@ -61,3 +60,5 @@ const Nav = ({
     </div>
   );
 };
+
+const Separator = () => <div className="w-[20px] h-[2px] bg-amber-200 "></div>;

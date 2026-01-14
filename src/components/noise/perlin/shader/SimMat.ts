@@ -173,8 +173,6 @@ float crossSDF(in vec2 st, in float s) {
 
       pos.xyz = mod(pos.xyz, 2.);
       gl_FragColor = vec4(pos);
-
-
     }
 
 `,
