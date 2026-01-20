@@ -9,19 +9,23 @@ const Layout = ({
   }[];
 }) => {
   return (
-    <main className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center p-8 bg-black">
+    <main className="w-screen h-screen flex justify-center items-center p-8 ">
       <section className="w-full h-full flex gap-10 justify-center items-center flex-col ">
         {/* CANVAS------------- */}
         <div className="flex justify-center items-center w-full h-4/5 ">
           <Outlet />
         </div>
         {/* CANVAS------------- */}
-        <nav className=" bg-black w-full h-fit text-neutral-500 flex justify-center items-center gap-20 ">
+        <nav className="w-full h-fit text-neutral-500 flex flex-col justify-center items-center gap-6 md:gap-10 md:flex-row  ">
           <h1 className="tracking-wider">Shape of light</h1>
           <Separator />
           <Nav paths={paths} />
           <Separator />
-          <a href="" className="tracking-wider underline">
+          <a
+            href="https://github.com/Vincent-Wirwicki/coldBlue"
+            target="_blank"
+            className="tracking-wider underline"
+          >
             Github
           </a>
         </nav>
@@ -32,6 +36,8 @@ const Layout = ({
 
 export default Layout;
 
+const Separator = () => <div className="w-[20px] h-[2px] bg-amber-200 "></div>;
+
 const Nav = ({
   paths,
 }: {
@@ -41,24 +47,20 @@ const Nav = ({
   }[];
 }) => {
   return (
-    <div className=" flex flex-col gap-4 items-center justify-center">
-      <div className=" flex justify-center items-center">
-        {paths.map(({ path, title }, i) => (
-          <NavLink
-            key={`${path}-${title}-${i}`}
-            to={path}
-            className={({ isActive }) =>
-              isActive
-                ? "text-amber-200 border border-amber-200 p-2 "
-                : "text-neutral-500 border border-neutral-800 p-2"
-            }
-          >
-            {title}
-          </NavLink>
-        ))}
-      </div>
+    <div className="flex justify-center items-center">
+      {paths.map(({ path, title }, i) => (
+        <NavLink
+          key={`${path}-${title}-${i}`}
+          to={path}
+          className={({ isActive }) =>
+            isActive
+              ? "text-amber-200 border border-amber-200 p-2 "
+              : "text-neutral-500 border border-neutral-800 p-2"
+          }
+        >
+          {title}
+        </NavLink>
+      ))}
     </div>
   );
 };
-
-const Separator = () => <div className="w-[20px] h-[2px] bg-amber-200 "></div>;
